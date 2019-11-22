@@ -1,10 +1,9 @@
 package com.zubarev.taskmanager.modal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 @Entity
+@Table(name="TASKS")
 public class Task {
     @Id
     @GeneratedValue
