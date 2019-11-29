@@ -2,11 +2,11 @@ package com.zubarev.taskmanager.modal;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
-@Table(name="TASKS")
 public class Task {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String taskName;
     private String descriptionTask;
@@ -15,12 +15,20 @@ public class Task {
 
     protected Task(){ }
 
+    public Long getId() {
+        return id;
+    }
     public Task(String taskName, String descriptionTask, Date date, String contacts){
         this.taskName=taskName;
         this.descriptionTask=descriptionTask;
         this.date =date;
         this.contacts=contacts;
     }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 
     public String getTaskName(){
         return taskName;
