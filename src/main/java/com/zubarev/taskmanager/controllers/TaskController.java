@@ -7,9 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class TaskController {
@@ -33,15 +31,21 @@ public class TaskController {
         return taskService.addTask(task);
     }
 
+
+
     @DeleteMapping("/deleteTask/{id}")
-    public void delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id,Model model){
         taskService.deleteTaskId(id);
+        model.addAttribute("abc",taskService.getAll());
+        return "index";
     }
 
     @PutMapping("/index")
-    public  @ResponseBody Task updateTask(@PathVariable Long id,@RequestBody Task task){
+    public String updateTask(@PathVariable Long id,@RequestBody Task task,Model model){
         task.setId(id);
-        return taskService.changeTask(task);
+        taskService.changeTask(task);
+        model.addAttribute("abc",taskService.getAll());
+        return "index";
     }
 
 
@@ -53,15 +57,10 @@ public class TaskController {
         return "index";
     }
     @PostMapping("/index")
-    public String add(@RequestParam String taskName, @RequestParam String descriptionTask, @RequestParam String contacts,Model model){
-        Task task=new Task(taskName,descriptionTask,null,contacts);
+    public String add(@RequestParam String taskName, @RequestParam String descriptionTask,  @RequestParam Date date,@RequestParam String contacts,Model model){
+        Task task=new Task(taskName,descriptionTask,date,contacts);
         taskService.addTask(task);
         model.addAttribute("abc",taskService.getAll());
         return "index";
     }
-
-
-
-
-    //TODO @POSTMAPPING как обработать в spring, 8java
 }
